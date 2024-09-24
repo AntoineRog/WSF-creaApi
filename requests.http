@@ -3,24 +3,71 @@ POST http://localhost:3000/users/register
 Content-Type: application/json
 
 {
-  "username": "user1",
-  "password": "password123"
+  "lastname": "Doe",
+  "firstname": "John",
+  "email": "john.doe@example.com",
+  "password": "Password123!",
+  "role": "user"
 }
 
 ### Connexion
-POST http://localhost:3000/users/login
+POST http://localhost:3000/login
 Content-Type: application/json
 
 {
-  "username": "user1",
-  "password": "password123"
+  "email": "john.doe@example.com",
+  "password": "Password123!"
 }
 
-### Mise à jour du profil
-PUT http://localhost:3000/users/profile
+### Créer un nouveau jeu
+POST http://localhost:3000/api/games
 Content-Type: application/json
+Authorization: Bearer {{token}}
+
+### Récupérer tous les jeux
+GET http://localhost:3000/api/games
+Authorization: Bearer {{token}}
+
+### Récupérer un jeu par ID
+GET http://localhost:3000/api/games/{{gameId}}
+Authorization: Bearer {{token}}
+
+### Mettre à jour un jeu (faire un mouvement)
+PATCH http://localhost:3000/api/games/{{gameId}}
+Content-Type: application/json
+Authorization: Bearer {{token}}
 
 {
-  "username": "user1",
-  "newPassword": "newpassword123"
+  "index": 0
 }
+
+### Remplacer un jeu
+PUT http://localhost:3000/api/games/{{gameId}}
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+### Supprimer un jeu
+DELETE http://localhost:3000/api/games/{{gameId}}
+Authorization: Bearer {{token}}
+
+### Récupérer tous les utilisateurs (admin seulement)
+GET http://localhost:3000/api/users
+Authorization: Bearer {{adminToken}}
+
+### Récupérer un utilisateur par ID
+GET http://localhost:3000/api/users/{{userId}}
+Authorization: Bearer {{adminToken}}
+
+### Mettre à jour un utilisateur
+PATCH http://localhost:3000/api/users/{{userId}}
+Content-Type: application/json
+Authorization: Bearer {{adminToken}}
+
+{
+  "lastname": "Doe",
+  "firstname": "Jane"
+}
+
+### Supprimer un utilisateur
+DELETE http://localhost:3000/api/users/{{userId}}
+Authorization: Bearer {{adminToken}}
