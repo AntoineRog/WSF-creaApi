@@ -17,6 +17,7 @@
     "i18next": "^23.15.1",
     "i18next-express-middleware": "^2.0.0",
     "i18next-fs-backend": "^2.3.2",
-    "jsonwebtoken": "^9.0.2"
+    "jsonwebtoken": "^9.0.2",
+    "sequelize": "^6.37.3"
   }
 }

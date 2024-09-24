@@ -1,30 +1,20 @@
-const express = require('express');
-const router = express.Router();
+const { Router } = require("express");
+const TicTacToeController = require("../controllers/game.js");
+const authenticate = require("../middlewares/checkAuth");
+const authorize = require("../middlewares/checkRole");
+const router = new Router();
 
-let games = [];
-
-router.post('/start', (req, res) => {
-    const game = {
-        id: games.length + 1,
-        board: Array(9).fill(null),
-        currentPlayer: 'X'
-    };
-    games.push(game);
-    res.locals.data = game;
-    res.status(201).end();
-});
-
-router.post('/move', (req, res) => {
-    const { gameId, index } = req.body;
-    const game = games.find(g => g.id === gameId);
-    if (game && game.board[index] === null) {
-        game.board[index] = game.currentPlayer;
-        game.currentPlayer = game.currentPlayer === 'X' ? 'O' : 'X';
-        res.locals.data = game;
-        res.status(200).end();
-    } else {
-        res.status(400).json({ message: 'Invalid move' });
-    }
-});
+// Collection route : GET : list games
+router.get("", authenticate, authorize(["admin", "user"]), TicTacToeController.cget);
+// Collection route : POST : create a game
+router.post("", authenticate, authorize(["admin", "user"]), TicTacToeController.post);
+// Item route : GET : fetch a game
+router.get("/:id", authenticate, authorize(["admin", "user"]), TicTacToeController.iget);
+// Item route : PATCH : make a move in a game
+router.patch("/:id", authenticate, authorize(["admin", "user"]), TicTacToeController.patch);
+// Item route : PUT : replace a game
+router.put("/:id", authenticate, authorize(["admin"]), TicTacToeController.put);
+// Item route : DELETE : delete a game
+router.delete("/:id", authenticate, authorize(["admin"]), TicTacToeController.delete);
 
 module.exports = router;

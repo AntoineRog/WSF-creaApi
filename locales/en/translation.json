@@ -1,9 +1,0 @@
-{
-    "welcome": "Welcome to Tic Tac Toe",
-    "register_success": "User registered successfully",
-    "login_success": "Login successful",
-    "invalid_credentials": "Invalid credentials",
-    "profile_updated": "Profile updated successfully",
-    "user_not_found": "User not found",
-    "invalid_move": "Invalid move"
-}
